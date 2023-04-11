@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Dashboard from './components/Dashboard';
+import Login from './components/Login';
+import { User } from './models/user';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Nav from './components/Nav';
+import Home from './components/Home';
+import ToDos from './components/ToDos';
 
 function App() {
+
+  const [principal, setPrincipal] = useState<User>();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Nav currentUser={principal} setCurrentUser={setPrincipal} />
+      <Routes>
+        <Route path="/todos" element={<ToDos currentUser={principal} />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Dashboard currentUser={principal} />} />
+        <Route path="/login" element={<Login currentUser={principal} setCurrentUser={setPrincipal} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
