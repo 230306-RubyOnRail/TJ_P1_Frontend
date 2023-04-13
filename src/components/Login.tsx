@@ -1,6 +1,6 @@
 import { SyntheticEvent, useState } from "react";
-import { User } from "../models/user";
 import { Navigate } from "react-router-dom";
+import { User } from "../models/user";
 import { authenticate } from "../remote/services/session-service";
 
 interface ILoginProps{
@@ -15,18 +15,22 @@ export default function Login(props: ILoginProps) {
     // let errorMessage = '';
 
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(''); // useState => [value, setter]; 
 
-    let updateEmail = (e: SyntheticEvent) => {
-        setEmail((e.target as HTMLInputElement).value); // e.target could be any element, cast as HTMLInput to retrieve the value
+    let updateUsername = (e: SyntheticEvent) => {
+        setUsername((e.target as HTMLInputElement).value); // e.target could be any element, cast as HTMLInput to retrieve the value
         // console.log(`email is: ${email}`);
     }
 
+    let updatePassword = (e: SyntheticEvent) => {
+        setPassword((e.target as HTMLInputElement).value);
+      };
+
     let login = async () => {
         // console.log(`email: ${email} and password: ${password}`);
-        if(email && password){
+        if(username && password){
             setErrorMessage('');
             // console.log(`email: ${email} and password: ${password}`);
 
@@ -39,7 +43,7 @@ export default function Login(props: ILoginProps) {
                 //     body: JSON.stringify({email, password})
                 // });
 
-                let response = await authenticate({email, password});
+                let response = await authenticate({username, password});
 
                 if(response.status === 201){
                     let data: User = response.data;
@@ -63,13 +67,11 @@ export default function Login(props: ILoginProps) {
         </>
         : // else
         <>
-            <p>Login to To-do app!</p>
+            <p>Login to Reimbursment app!</p>
             <div>
-                <input type="text" id="login-email" placeholder="Enter your email" onChange={updateEmail}/>
+                <input type="text" id="login-username" placeholder="Enter your Username" onChange={updateUsername}/>
                 <br /><br />
-                <input type="text" id="login-password" placeholder="Enter your password" onChange={(e) => {
-                    setPassword(e.target.value);
-                    }}/>
+                <input type="text" id="login-password" placeholder="Enter your password" onChange={updatePassword}/>
                 <br /><br />
                 <button id="login-button" onClick={login}>Login</button>                
             </div>

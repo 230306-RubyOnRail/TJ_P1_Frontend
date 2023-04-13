@@ -1,13 +1,13 @@
 import { authAppClient } from "../authenticated-app-client"
 
-export const getListTodos = async (userId: number) => {
-    return await authAppClient.get(`/users/${userId}/lists`);
+export const getReimbursements = async () => {
+    return await authAppClient.get('/reimbursements');
 }
 
-export const createList = () => {
-
+export const deleteReimbursement = async (id:number) => {
+    return await authAppClient.delete(`/reimbursements/${id}`);
 }
 
-export const patchList = () => {
-    
+export const updateReimbursement = async (id:number) => {
+    return await authAppClient.put(`/reimbursements/${id}`);
 }

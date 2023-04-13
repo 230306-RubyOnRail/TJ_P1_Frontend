@@ -9,7 +9,7 @@ export default function Dashboard(props: IDashboardProps) {
     return (
         props.currentUser ?
             <>
-                Hello {props.currentUser?.name} from Dashboard!
+                Hello {props.currentUser?.username} from Dashboard!
             </>
             :
             <>

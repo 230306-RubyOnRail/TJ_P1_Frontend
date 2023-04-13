@@ -1,11 +1,20 @@
 export class User {
-    id: number;
+    user_id : number;
+    username: string;
+    manager: boolean;
     token: string;
-    name: string;
     
-    constructor(id: number, token: string, name: string){
-        this.id = id;
+    constructor(user_id: number, username: string, manager: boolean, token: string){
+        this.user_id = user_id
+        this.username = username;
+        this.manager = manager;
         this.token = token;
-        this.name = name;
     }
+}
+
+export interface User {
+    user_id: number;
+    username: string;
+    manager: boolean;
+    token: string;
 }

@@ -4,9 +4,9 @@ import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import { User } from './models/user';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Nav from './components/Nav';
-import Home from './components/Home';
-import ToDos from './components/ToDos';
+// import Nav from './components/Nav';
+// import Edit from './components/Edit';
+
 
 function App() {
 
@@ -14,12 +14,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Nav currentUser={principal} setCurrentUser={setPrincipal} />
+      {/* <Nav currentUser={principal} setCurrentUser={setPrincipal} /> */}
       <Routes>
-        <Route path="/todos" element={<ToDos currentUser={principal} />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/" element={<Dashboard currentUser={principal} />} />
         <Route path="/login" element={<Login currentUser={principal} setCurrentUser={setPrincipal} />} />
+        {/* <Route path="/edit" element={<Edit currentUser={principal} setCurrentUser={setPrincipal} />} /> */}
+
       </Routes>
     </BrowserRouter>
   );
