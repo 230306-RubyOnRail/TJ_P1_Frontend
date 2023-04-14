@@ -7,8 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
 import Create from './components/Create'
 import AddUser from './components/AddUser'
-
-// import Edit from './components/Edit';
+import Edit from './components/Edit';
 
 
 function App() {
@@ -23,9 +22,7 @@ function App() {
         <Route path="/login" element={<Login currentUser={principal} setCurrentUser={setPrincipal} />} />
         <Route path="/create" element={<Create currentUser={principal} />} />
         <Route path="/addUser" element={<AddUser currentUser={principal} />} />
-
-
-        {/* <Route path="/edit" element={<Edit currentUser={principal} setCurrentUser={setPrincipal} />} /> */}
+        <Route path="/edit/:id" element={<Edit currentUser={principal}/>} />
 
       </Routes>
     </BrowserRouter>

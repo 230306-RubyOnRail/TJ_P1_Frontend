@@ -12,12 +12,12 @@ export default function Login(props: ILoginProps) {
 
     // let email = '';
     // let password = '';
-    // let errorMessage = '';
+    // let message = '';
 
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState(''); // useState => [value, setter]; 
+    const [message, setMessage] = useState(''); // useState => [value, setter]; 
 
     let updateUsername = (e: SyntheticEvent) => {
         setUsername((e.target as HTMLInputElement).value); // e.target could be any element, cast as HTMLInput to retrieve the value
@@ -31,7 +31,7 @@ export default function Login(props: ILoginProps) {
     let login = async () => {
         // console.log(`email: ${email} and password: ${password}`);
         if(username && password){
-            setErrorMessage('');
+            setMessage('');
             // console.log(`email: ${email} and password: ${password}`);
 
             try{
@@ -50,13 +50,13 @@ export default function Login(props: ILoginProps) {
                     props.setCurrentUser(data);
                     sessionStorage.setItem('token', data.token);
                 } else {
-                    setErrorMessage('Credentials invalid.');
+                    setMessage('Credentials invalid.');
                 }
             } catch (err){
-               setErrorMessage('Unable to connect to the API');
+               setMessage('Unable to connect to the API');
             }
         } else {
-           setErrorMessage('Invalid input for username/password.');
+           setMessage('Invalid input for username/password.');
         }
     }
 
@@ -76,7 +76,7 @@ export default function Login(props: ILoginProps) {
                 <button id="login-button" onClick={login}>Login</button>                
             </div>
             <div>
-                {errorMessage}
+                {message}
             </div>
         </>
     );

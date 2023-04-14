@@ -25,7 +25,7 @@ export default function Nav(props: INavProps) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Reimbursements
                     </Typography>
-                    <Button color="inherit"><Link className="link" to="/home">Home</Link></Button>
+                    <Button color="inherit"><Link className="link" to="/">Home</Link></Button>
                     {
                         props.currentUser ?
 

@@ -11,7 +11,7 @@ interface IAddUser {
 export default function AddUser(props: any) {
     const [user, setUser] = useState("")
     const [password, setPassword] = useState("")
-    const [errorMessage, setErrorMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     var response;
 
@@ -28,21 +28,20 @@ export default function AddUser(props: any) {
 
       let submitHandler = async (e: SyntheticEvent) => {
         if (password && user) {
-            setErrorMessage("");
             try {
                 response = await createUser(user, password);
 
                 if (response.status === 201) {
-                    setErrorMessage("User Created")
+                    setMessage("User Created")
                 } else {
-                    setErrorMessage("User Not Created");
+                    setMessage("User Not Created");
                 }
             } catch (err) {
-                setErrorMessage("Error");
+                setMessage("Error");
                 console.log(err);
             }
         } else {
-            setErrorMessage("not logged in");
+            setMessage("not logged in");
         }
     };        
 
@@ -63,7 +62,7 @@ export default function AddUser(props: any) {
                 <button id="login-button" onClick={submitHandler}>Create</button>                
             </div>
             <div>
-                {errorMessage}
+                {message}
             </div>
         </>
     );

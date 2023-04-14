@@ -14,7 +14,7 @@ interface ICreateProps {
 export default function Create(props: ICreateProps) {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
-    const [errorMessage, setErrorMessage] = useState("");
+    const [message, setMessage] = useState("");
 
     var response;
 
@@ -31,21 +31,21 @@ export default function Create(props: ICreateProps) {
 
       let submitHandler = async (e: SyntheticEvent) => {
         if (description && title) {
-            setErrorMessage("");
+            setMessage("");
             try {
                 response = await createReimburse(title, description);
 
                 if (response.status === 200) {
-                    setErrorMessage("Reimbursement Created")
+                    setMessage("Reimbursement Created")
                 } else {
-                    setErrorMessage("Reimbursement not Created.");
+                    setMessage("Reimbursement not Created.");
                 }
             } catch (err) {
-                setErrorMessage("Error");
+                setMessage("Error");
                 console.log(err);
             }
         } else {
-            setErrorMessage("Not Logged In");
+            setMessage("Not Logged In");
         }
     };        
 
@@ -69,7 +69,7 @@ export default function Create(props: ICreateProps) {
                 <button id="login-button" onClick={submitHandler}>Create</button>                
             </div>
             <div>
-                {errorMessage}
+                {message}
             </div>
         </>
     );

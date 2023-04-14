@@ -1,7 +1,7 @@
 import { authAppClient } from "../authenticated-app-client";
 
-export const getListReimbursement = async (userId: number) => {
-    return await authAppClient.get(`/reimbursements/${userId}`);
+export const getListReimbursement = async () => {
+    return await authAppClient.get(`/reimbursements`);
 }
 
 export const createReimburse = async (title: string, description: string) => {
@@ -17,6 +17,11 @@ export const updateReimburse = async (title: string, description: string, id: nu
         title: title,
         description: description,
         approved: false
+    })
+}
+export const approveReimburse = async (id: number) => {
+    return await authAppClient.put(`/reimbursements/${id}`, {
+        approved: true
     })
 }
 
