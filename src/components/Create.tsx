@@ -2,13 +2,16 @@ import { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Reimbursement } from "../models/reimbursement";
 import { createReimburse } from "../remote/services/reimbursement-service";
+import { User } from "../models/user";
 
-interface ICreateReimbursement {
-    getReimbursements: () => void | undefined;
+// interface ICreateReimbursement {
+//     getReimbursements: () => void | undefined;
+// }
+
+interface ICreateProps {
+    currentUser: User | undefined
 }
-
-
-export default function Create(props: any) {
+export default function Create(props: ICreateProps) {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
@@ -33,23 +36,26 @@ export default function Create(props: any) {
                 response = await createReimburse(title, description);
 
                 if (response.status === 200) {
-                    
+                    setErrorMessage("Reimbursement Created")
                 } else {
-                    setErrorMessage("Something went wrong.");
+                    setErrorMessage("Reimbursement not Created.");
                 }
             } catch (err) {
-                setErrorMessage("Unable to send request.");
+                setErrorMessage("Error");
                 console.log(err);
             }
         } else {
-            setErrorMessage("Either one is missing");
+            setErrorMessage("Not Logged In");
         }
     };        
 
     
     return (
-        props.currentUser ? // if
+ 
+
+        !props.currentUser ? // if
         <>
+
             <Navigate to="/"/>
         </>
         : // else

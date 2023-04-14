@@ -9,56 +9,56 @@ interface IAddUser {
 
 
 export default function AddUser(props: any) {
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    const [user, setUser] = useState("")
+    const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
 
     var response;
 
 
-    let updateTitle = (e: SyntheticEvent) => {
-        setTitle((e.target as HTMLInputElement).value); // e.target could be any element, cast as HTMLInput to retrieve the value
+    let updateUser = (e: SyntheticEvent) => {
+        setUser((e.target as HTMLInputElement).value); // e.target could be any element, cast as HTMLInput to retrieve the value
     }
 
-    let updateDescription = (e: SyntheticEvent) => {
-        setDescription((e.target as HTMLInputElement).value);
+    let updatePassword = (e: SyntheticEvent) => {
+        setPassword((e.target as HTMLInputElement).value);
       };
 
 
 
       let submitHandler = async (e: SyntheticEvent) => {
-        if (description && title) {
+        if (password && user) {
             setErrorMessage("");
             try {
-                response = await createUser(title, description);
+                response = await createUser(user, password);
 
-                if (response.status === 200) {
-                    
+                if (response.status === 201) {
+                    setErrorMessage("User Created")
                 } else {
-                    setErrorMessage("Something went wrong.");
+                    setErrorMessage("User Not Created");
                 }
             } catch (err) {
-                setErrorMessage("Unable to send request.");
+                setErrorMessage("Error");
                 console.log(err);
             }
         } else {
-            setErrorMessage("Either one is missing");
+            setErrorMessage("not logged in");
         }
     };        
 
     
     return (
-        props.currentUser ? // if
+        !props.currentUser ? // if
         <>
             <Navigate to="/"/>
         </>
         : // else
         <>
-            <p>Create a Reimbursement!</p>
+            <p>Add a User!</p>
             <div>
-                <input type="text" id="title" placeholder="title" onChange={updateTitle}/>
+                <input type="text" id="user" placeholder="user" onChange={updateUser}/>
                 <br /><br />
-                <input type="text" id="description" placeholder="description" onChange={updateDescription}/>
+                <input type="text" id="password" placeholder="password" onChange={updatePassword}/>
                 <br /><br />
                 <button id="login-button" onClick={submitHandler}>Create</button>                
             </div>
