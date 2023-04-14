@@ -56,7 +56,7 @@ export default function Login(props: ILoginProps) {
                setErrorMessage('Unable to connect to the API');
             }
         } else {
-           setErrorMessage('Invalid input for email/password.');
+           setErrorMessage('Invalid input for username/password.');
         }
     }
 

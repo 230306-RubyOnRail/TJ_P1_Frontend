@@ -1,14 +1,14 @@
 import { SyntheticEvent, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Reimbursement } from "../models/reimbursement";
-import { createReimburse } from "../remote/services/reimbursement-service";
+import { createUser } from "../remote/services/user-service";
 
-interface ICreateReimbursement {
+interface IAddUser {
     getReimbursements: () => void | undefined;
 }
 
 
-export default function Create(props: any) {
+export default function AddUser(props: any) {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [errorMessage, setErrorMessage] = useState("");
@@ -30,7 +30,7 @@ export default function Create(props: any) {
         if (description && title) {
             setErrorMessage("");
             try {
-                response = await createReimburse(title, description);
+                response = await createUser(title, description);
 
                 if (response.status === 200) {
                     

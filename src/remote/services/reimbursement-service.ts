@@ -1,13 +1,32 @@
-import { authAppClient } from "../authenticated-app-client"
+import { authAppClient } from "../authenticated-app-client";
 
-export const getReimbursements = async () => {
-    return await authAppClient.get('/reimbursements');
+export const getListReimbursement = async (userId: number) => {
+    return await authAppClient.get(`/reimbursements/show/${userId}`);
 }
 
-export const deleteReimbursement = async (id:number) => {
-    return await authAppClient.delete(`/reimbursements/${id}`);
+export const createReimburse = async (title: string, description: string) => {
+    return await authAppClient.post(`/reimbursements/new/`,{
+        title: title,
+        description: description,
+        approved: false
+    })
 }
 
-export const updateReimbursement = async (id:number) => {
-    return await authAppClient.put(`/reimbursements/${id}`);
+export const updateReimburse = async (title: string, description: string, id: number) => {
+    return await authAppClient.put(`/reimbursements/update/${id}`, {
+        title: title,
+        description: description
+    })
+}
+
+export const updateReimburseManager = async (title: string, description: string, id: number, approved: boolean) => {
+    return await authAppClient.put(`/reimbursements/update/${id}`, {
+        title: title,
+        description: description,
+        approved: approved
+    })
+}
+
+export const deleteReimburse = async (id: number) => {
+    return await authAppClient.delete(`/reimbursements/delete/${id}`)
 }
