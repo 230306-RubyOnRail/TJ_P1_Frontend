@@ -24,7 +24,11 @@ export const approveReimburse = async (id: number) => {
         approved: true
     })
 }
-
+export const denyReimburse = async (id: number) => {
+    return await authAppClient.put(`/reimbursements/${id}`, {
+        approved: false
+    })
+}
 // export const updateReimburseManager = async (title: string, description: string, id: number, approved: boolean) => {
 //     return await authAppClient.put(`/reimbursements/${id}`, {
 //         title: title,

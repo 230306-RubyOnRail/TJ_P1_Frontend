@@ -25,18 +25,19 @@ export default function Nav(props: INavProps) {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Reimbursements
                     </Typography>
-                    <Button color="inherit"><Link className="link" to="/">Home</Link></Button>
                     {
                         props.currentUser ?
 
                             props.currentUser.manager?
                             <>
+                                <Button color="inherit"><Link className="link" to="/manager">Home</Link></Button>
                                 <Button color="inherit"><Link className="link" to="/addUser">Add a user</Link></Button>
                                 <Button color="inherit" onClick={logout}>Logout</Button>
                             </>
                             :
                             <>
-                                <Button color="inherit"><Link className="link" to="/create">Create</Link></Button>
+                                <Button color="inherit"><Link className="link" to="/">Home</Link></Button>
+                                <Button color="inherit"><Link className="link" to="/create">Create Reimbursement</Link></Button>
                                 <Button color="inherit" onClick={logout}>Logout</Button>
                             </>
                             :

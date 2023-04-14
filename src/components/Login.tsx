@@ -62,8 +62,13 @@ export default function Login(props: ILoginProps) {
 
     return (
         props.currentUser ? // if
+            props.currentUser.manager ?
         <>
-            <Navigate to="/"/>
+            <Navigate to="/manager"/>
+        </>
+        :
+        <>
+            <Navigate to ="/"/>
         </>
         : // else
         <>

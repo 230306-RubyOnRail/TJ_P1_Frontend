@@ -8,6 +8,7 @@ import Nav from './components/Nav';
 import Create from './components/Create'
 import AddUser from './components/AddUser'
 import Edit from './components/Edit';
+import ManagerDashboard from './components/ManagerDashboard';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Nav currentUser={principal} setCurrentUser={setPrincipal} />
       <Routes>
         <Route path="/" element={<Dashboard currentUser={principal} />} />
+        <Route path="/manager" element={<ManagerDashboard currentUser={principal} />} />
         <Route path="/login" element={<Login currentUser={principal} setCurrentUser={setPrincipal} />} />
         <Route path="/create" element={<Create currentUser={principal} />} />
         <Route path="/addUser" element={<AddUser currentUser={principal} />} />

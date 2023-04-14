@@ -1,20 +1,26 @@
 import { Link, Navigate } from "react-router-dom";
 import { User } from "../models/user";
 import { useEffect, useState } from "react";
-import { deleteReimburse } from "../remote/services/reimbursement-service";
+import { approveReimburse, deleteReimburse, denyReimburse } from "../remote/services/reimbursement-service";
 import { Reimbursement } from "../models/reimbursement";
 import axios from "axios";
 import '../styles/Table.css';
 
-interface IDashboardProps {
+
+interface IManagerDashboardProps {
     currentUser: User | undefined
 }
 
-export default function Dashboard(props: IDashboardProps) {
+export default function ManagerDashboard(props: IManagerDashboardProps) {
     
     const [reimbursements, setReimbursements] = useState<Reimbursement[] | undefined>(undefined);
     const [message, setMessage] = useState("");
+    const [showButton, setShowButton] = useState(true);
 
+    const toggleButton = () => {
+      setShowButton(!showButton);
+    };
+    
     useEffect(() => {
         getReimbursements();
     }, [])
@@ -47,12 +53,33 @@ export default function Dashboard(props: IDashboardProps) {
             } 
         } catch (err) {
             setMessage("not right user");
-        }    };        
+        }    };      
+        const approveReimbursement = (id:number) => async () => {
+            try {
+                let response = await approveReimburse(id);
+                if (response.status === 200) {
+                    setMessage("approved");
+                } 
+            } catch (err) {
+                setMessage("not right user");
+            }    };     
+
+            const denyReimbursement = (id:number) => async () => {
+                try {
+                    let response = await denyReimburse(id);
+                    if (response.status === 200) {
+                        setMessage("Denied Request ");
+                    } 
+                } catch (err) {
+                    setMessage("not right user");
+                }    };    
+        
+
     return (
         props.currentUser ?
             <>
                 <h1> Welcome Back, {props.currentUser.username}</h1> 
-                <table className ="styled-table">
+                <table className="styled-table">
                 <tr>
                     <th>User</th>
                     <th>id</th>
@@ -70,10 +97,10 @@ export default function Dashboard(props: IDashboardProps) {
                             <td>{reimbursement.id}</td>
                             <td>{reimbursement.title}</td>
                             <td>{reimbursement.description}</td>
-                            <td>{reimbursement.approved + ' '}</td>
-                            <td><button><Link to={`/edit/${reimbursement.id}`}>Edit</Link></button>
-                             |  <button onClick= {deleteReimbursement(reimbursement.id)}>Delete </button>
-
+                            <td>{reimbursement.approved + ""}</td>                            
+                            <td><button onClick= {approveReimbursement(reimbursement.id)}>Approve </button>
+                            |<button onClick= {denyReimbursement(reimbursement.id)}>Deny </button>
+                             |<button onClick= {deleteReimbursement(reimbursement.id)}>Delete </button>
                              </td>
                         </tr>
                     }) : ""
