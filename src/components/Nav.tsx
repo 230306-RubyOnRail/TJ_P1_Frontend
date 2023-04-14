@@ -31,12 +31,12 @@ export default function Nav(props: INavProps) {
 
                             props.currentUser.manager?
                             <>
-                                <Button color="inherit"><Link className="link" to="/user">Add a user</Link></Button>
+                                <Button color="inherit"><Link className="link" to="/addUser">Add a user</Link></Button>
                                 <Button color="inherit" onClick={logout}>Logout</Button>
                             </>
                             :
                             <>
-                                <Button color="inherit"><Link className="link" to="/todos">To Dos</Link></Button>
+                                <Button color="inherit"><Link className="link" to="/create">Create</Link></Button>
                                 <Button color="inherit" onClick={logout}>Logout</Button>
                             </>
                             :
